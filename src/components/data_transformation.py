@@ -24,7 +24,7 @@ class DataTransformation:
 
     def get_data_transformer_object(self):
         '''
-        This function is responsible for data transformation.
+        This function si responsible for data trnasformation
         
         '''
         try:
@@ -41,15 +41,18 @@ class DataTransformation:
                 steps=[
                 ("imputer",SimpleImputer(strategy="median")),
                 ("scaler",StandardScaler())
+
                 ]
             )
 
             cat_pipeline=Pipeline(
+
                 steps=[
                 ("imputer",SimpleImputer(strategy="most_frequent")),
                 ("one_hot_encoder",OneHotEncoder()),
                 ("scaler",StandardScaler(with_mean=False))
                 ]
+
             )
 
             logging.info(f"Categorical columns: {categorical_columns}")
@@ -59,6 +62,7 @@ class DataTransformation:
                 [
                 ("num_pipeline",num_pipeline,numerical_columns),
                 ("cat_pipelines",cat_pipeline,categorical_columns)
+
                 ]
 
 
@@ -103,10 +107,12 @@ class DataTransformation:
             test_arr = np.c_[input_feature_test_arr, np.array(target_feature_test_df)]
 
             logging.info(f"Saved preprocessing object.")
-            
+
             save_object(
-              file_path = self.data_transformation_config.preprocessor_obj_file_path,
-              obj = preprocessing_obj
+
+                file_path=self.data_transformation_config.preprocessor_obj_file_path,
+                obj=preprocessing_obj
+
             )
 
             return (
